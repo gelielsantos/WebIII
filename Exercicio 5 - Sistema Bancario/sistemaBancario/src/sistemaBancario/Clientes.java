@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Clientes {
 	
-	ArrayList <String> clientes = new ArrayList<String>();
+	ArrayList <DadosCliente> clientes = new ArrayList<DadosCliente>();
 	Scanner teclado = new Scanner(System.in);
 	
 	public void cadastroCliente() 
@@ -19,10 +19,14 @@ public class Clientes {
 	    	int resp = teclado.nextInt();
 	    	if(resp == 1) 
 	    	{
-	    		System.out.println("Digite um nome:");
-		 		String nome = teclado.next();
-		 		clientes.add(nome);
-		 		System.out.println(clientes.toString());
+	    		System.out.println("Digite o nome:");
+		    	String nome = teclado.next();
+		    	System.out.println("Digite o telefone:");
+		    	String telefone = teclado.next();
+		    	DadosCliente cliente = new DadosCliente(nome,telefone); 
+	    		if(cliente != null) {
+	    			clientes.add(cliente);
+	    		}
 	    	}
 	    	else {
 	    		res=false;
@@ -30,6 +34,7 @@ public class Clientes {
 	    	
 	    }while (res==true);
 	}
+	
 	public void buscaCliente() 
 	{
 		boolean res = true;
@@ -40,17 +45,25 @@ public class Clientes {
     	
 	    	if(resp == 1) 
 	    	{
-	    		System.out.println("Digite um nome para buscar:");
-	    		String nome = teclado.next();
-	    		boolean localizado = clientes.contains(nome);
-		 		System.out.printf("Foi localizado: %s\n", localizado);
+	    		System.out.println("Digite o nome:");
+		    	String nome = teclado.next();
+		    	DadosCliente cliente = new DadosCliente(nome);
+		    	for(DadosCliente elemento : clientes) {
+					if(elemento.getNome().equalsIgnoreCase(cliente.getNome())) {
+						System.out.printf("Nome: %s \t Telefone:%s\n", elemento.getNome(),elemento.getTelefone());
+						
+					}
+					
+				}
+				
 	    	}
 	    	else {
 	    		res=false;
 	    	}
 		}while (res==true);
 	}
-	public void removeCliente() 
+	
+	public void removeClientes() 
 	{
 		boolean res = true;
 		System.out.println("Remoção de Clientes");
@@ -60,19 +73,56 @@ public class Clientes {
     	
 	    	if(resp == 1) 
 	    	{
-	    		System.out.println("Digite um nome para remover:");
-	    		String nome = teclado.next();
-	    		int local = clientes.indexOf(nome);
-	    		clientes.remove(local);
-	    		System.out.println(clientes.toString());
+	    		System.out.println("Digite o nome:");
+		    	String nome = teclado.next();
+		    	DadosCliente cliente = new DadosCliente(nome);
+	    		clientes.removeIf((elemento)->elemento.getNome().equalsIgnoreCase(cliente.getNome()));
 	    	}
 	    	else {
 	    		res=false;
 	    	}
 		}while (res==true);
 	}
+	
+	public void editarCliente() 
+	{
+		boolean res = true;
+		System.out.println("Editar os Clientes");
+		do {
+    	System.out.println("Digite uma opção (1 - Continuar, 2 - Sair):");
+    	int resp = teclado.nextInt();
     	
-    	
-    
+	    	if(resp == 1) 
+	    	{
+	    		System.out.println("Digite o nome:");
+		    	String nome = teclado.next();
+		    	DadosCliente cliente = new DadosCliente(nome);
+		    	System.out.println("Digite o novo nome:");
+		    	String nomeNovo = teclado.next();
+		    	System.out.println("Digite o novo telefone:");
+		    	String telefoneNovo = teclado.next();
+		    	DadosCliente novoCliente = new DadosCliente(nomeNovo,telefoneNovo);
+		    	for(DadosCliente elemento : clientes) {
+	    			if(elemento.getNome().equalsIgnoreCase(cliente.getNome())) {
+	    				int indice = clientes.indexOf(elemento);
+	    	    		if(indice != -1) {
+	    	    			clientes.set(indice, novoCliente);
+	    	    		}
+	    			}
+		    	}
+	    	}
+	    	else {
+	    		res=false;
+	    	}
+		}while (res==true);
+	}
 
+	public String listarCliente() 
+	{
+		StringBuilder builder = new StringBuilder();
+		for(DadosCliente cliente : this.clientes) {
+			builder.append("Nome: "+cliente.getNome()+" - Telefone: "+cliente.getTelefone()+"\n");
+		}
+		return builder.toString();
+	}
 }
