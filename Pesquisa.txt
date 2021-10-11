@@ -1,0 +1,15 @@
+Framework tem o objetivo de resolver problemas recorrentes de uma forma genérica, permitindo a quem desenvolve, focar na resolução do problema em si, e não ficar reescrevendo software. Seria um conjunto de bibliotecas ou componentes que são usados para criar uma base onde sua aplicação será construída.
+
+Vantagens: 
+-Grande capacidade de adaptação, poupando tempo do programador.
+-Qualquer um pode editar ele. 
+-Permite um código limpo e de facil programação.
+Desvantagens: 
+-Dificuldade de configuração.
+-Se usado exagerado, pode-se perder o código.
+-Muitos elementos desnecessários e prejudiciais.
+
+Exemplos JavaScript:
+-Bootstrap
+-AngularJS
+-Ember.js
